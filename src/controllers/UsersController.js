@@ -1,4 +1,5 @@
 import User from '../models/User'
+import { createPasswordHash } from '../services/auth.js'
 
 class UsersController {
     async index(req, res) {
@@ -23,13 +24,19 @@ class UsersController {
             if(user) {
                 return res.status(422).json({msg: `o email ${email} ja foi cadastrado`})
             }
-            const newUser = await User.create({email, password}) 
+
+            // criptografa o a senha
+
+            const encryptedPassword = await createPasswordHash(password)
+
+            const newUser = await User.create({ email, password: encryptedPassword }) 
             //201 significa que um objeto foi criado
             return res.status(201).json(newUser) //vai passar o registro que o mongo passou pra ele
         } 
         
         catch (error) {
-            
+            console.log(req.body)
+            console.log(error)
         }
     }
     async update(req, res) {
