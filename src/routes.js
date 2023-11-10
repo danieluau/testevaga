@@ -13,7 +13,7 @@ routes.get('/hello', HelloController.index) //essa rota vai responder a açcao i
 routes.get('/users', UsersController.index) //mosrta todos
 routes.get('/users/:id', UsersController.show) // mostra um
 routes.post('/users', UsersController.create) //criar
-routes.put('/users', UsersController.update) //atualizar
+routes.put('/users/:id', UsersController.update) //atualizar
 routes.delete('/users/:id', UsersController.delete) //deletar
 
 

@@ -14,7 +14,20 @@ class UsersController {
         }
     }
     async show(req, res) {
-        
+        try {
+            const {id} = req.params;
+            const user = await User.findById(id)
+
+            if(!user){
+                return res.status(404).json
+            }
+
+            return res.json(user)
+
+        } catch (error) {
+            console.log(error) //qualquer error que de ele mostra detalhado no console pra gente, mas pra aplicação so retorna erro no sevidor
+            return res.status(500).json({error: 'internal server error'})
+        }
     }
     async create(req, res) {
         try {
@@ -41,9 +54,47 @@ class UsersController {
     }
     async update(req, res) {
         
+        try {
+                    
+            const {id} = req.params;
+            const {email, password} = req.body
+
+            const user = await User.findById(id)
+
+            if(!user) {
+                return res.status(404).json()
+            }
+
+            // criptografa o a senha
+
+            const encryptedPassword = await createPasswordHash(password)
+
+            //se encontrar o usuario atualiza
+            await user.updateOne({email, password: encryptedPassword})
+
+            return res.status(200).json();
+            
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     async delete(req, res) {
+        try {
+            const {id} = req.params;
+            const user = await User.findById(id)
+    
+            if (!user) {
+                return res.status(404).json()
+            }
+    
+            await user.deleteOne()
+    
+            return res.status(200).json()
         
+        } catch (error) {
+            console.log(error)
+        }
     }
     
 }
