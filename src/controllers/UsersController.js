@@ -38,6 +38,8 @@ class UsersController {
                 return res.status(422).json({msg: `o email ${email} ja foi cadastrado`})
             }
 
+            console.log(password)
+
             // criptografa o a senha
 
             const encryptedPassword = await createPasswordHash(password)
@@ -72,7 +74,7 @@ class UsersController {
             //se encontrar o usuario atualiza
             await user.updateOne({email, password: encryptedPassword})
 
-            return res.status(200).json();
+            return res.status(200).json(user);
             
         } catch (error) {
             console.log(error)
@@ -90,7 +92,7 @@ class UsersController {
     
             await user.deleteOne()
     
-            return res.status(200).json()
+            return res.status(200).json(`o usuario ${user} foi deletado`)
         
         } catch (error) {
             console.log(error)
