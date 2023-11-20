@@ -17,10 +17,7 @@ routes.post('/users', UsersController.create) //criar
 routes.put('/users/:id', UsersController.update) //atualizar
 routes.delete('/users/:id', UsersController.delete) //deletar
 
-//routes.get('', RepositoriesController.index)
-//routes.get('', RepositoriesController.show)
-//routes.post('', RepositoriesController.create)
-//routes.put('', RepositoriesController.update)
-//routes.delete('', RepositoriesController.delete)
-
+routes.get('/users/:user_id/repositories', RepositoriesController.index)
+routes.post('/users/:user_id/repositories', RepositoriesController.create)
+routes.delete('/users/:user_id/repositories', RepositoriesController.delete)
 export default routes;
