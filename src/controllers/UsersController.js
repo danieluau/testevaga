@@ -29,6 +29,7 @@ class UsersController {
             return res.status(500).json({error: 'internal server error'})
         }
     }
+    
     async create(req, res) {
         try {
             const {email, password} = req.body //vai puxar o corpo da requisiçao que o front end vai enviar
@@ -54,6 +55,7 @@ class UsersController {
             console.log(error)
         }
     }
+   
     async update(req, res) {
         
         try {
@@ -78,7 +80,7 @@ class UsersController {
             
         } catch (error) {
             console.log(error)
-        }
+        } 
 
     }
     async delete(req, res) {
